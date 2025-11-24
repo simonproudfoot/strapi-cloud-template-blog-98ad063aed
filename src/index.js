@@ -1,5 +1,6 @@
 'use strict';
-const bootstrap = require("./bootstrap");
+
+const bootstrap = require('./bootstrap');
 
 module.exports = {
   /**
@@ -8,7 +9,26 @@ module.exports = {
    *
    * This gives you an opportunity to extend code.
    */
-  register(/*{ strapi }*/) {},
+  register({ strapi }) {
+    // Register custom migration route if migrate-recipes exists
+    try {
+      const migrateRecipes = require('./migrate-recipes');
+      strapi.server.routes([
+        {
+          method: 'POST',
+          path: '/api/migrate-recipes',
+          handler: async (ctx) => {
+            await migrateRecipes({ strapi, ctx });
+          },
+          config: {
+            auth: false,
+          },
+        },
+      ]);
+    } catch (error) {
+      // migrate-recipes not found, skip
+    }
+  },
 
   /**
    * An asynchronous bootstrap function that runs before

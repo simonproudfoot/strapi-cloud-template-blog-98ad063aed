@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_ingredient_supermarkets",
+  "info": {
+    "displayName": "Supermarket Entry",
+    "description": "Store price, link, and media for an ingredient in a specific supermarket",
+    "icon": "shopping-cart"
+  },
+  "options": {},
+  "attributes": {
+    "supermarket": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "currency": {
+      "type": "string",
+      "default": "GBP"
+    },
+    "url": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}
+

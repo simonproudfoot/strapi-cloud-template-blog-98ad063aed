@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "collections",
+  "info": {
+    "singularName": "collection",
+    "pluralName": "collections",
+    "displayName": "Collection",
+    "description": "Recipe collections for curated content"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "displayTitle": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "order": {
+      "type": "integer",
+      "default": 999
+    },
+    "displayMode": {
+      "type": "enumeration",
+      "enum": ["standard", "hero", "carousel"],
+      "default": "standard"
+    },
+    "bgColor": {
+      "type": "string",
+      "default": "#FFF8F0"
+    },
+    "darkMode": {
+      "type": "boolean",
+      "default": false
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "publishedAt": {
+      "type": "datetime"
+    },
+    "recipes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::recipe.recipe"
+    }
+  }
+}
+

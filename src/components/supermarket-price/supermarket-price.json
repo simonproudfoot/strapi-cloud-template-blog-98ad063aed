@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_recipe_supermarket_prices",
+  "info": {
+    "displayName": "Supermarket Price",
+    "description": "Price information from a supermarket",
+    "icon": "shopping-cart"
+  },
+  "options": {},
+  "attributes": {
+    "supermarket": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "currency": {
+      "type": "string",
+      "default": "GBP"
+    }
+  }
+}
+

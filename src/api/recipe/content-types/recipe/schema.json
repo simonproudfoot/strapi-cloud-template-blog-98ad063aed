@@ -1,0 +1,80 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recipes",
+  "info": {
+    "singularName": "recipe",
+    "pluralName": "recipes",
+    "displayName": "Recipe",
+    "description": "Recipe content type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "recipeId": {
+      "type": "uid",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "servings": {
+      "type": "integer",
+      "default": 4
+    },
+    "prepTime": {
+      "type": "string"
+    },
+    "cookTime": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tag.tag"
+    },
+    "ingredients": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::recipe-ingredient.recipe-ingredient",
+      "mappedBy": "recipe"
+    },
+    "instructions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "instruction.instruction"
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "sourceUrl": {
+      "type": "string"
+    },
+    "supermarkets": {
+      "type": "component",
+      "repeatable": true,
+      "component": "supermarket-price.supermarket-price"
+    },
+    "pricesEstimatedAt": {
+      "type": "datetime"
+    },
+    "isCurated": {
+      "type": "boolean",
+      "default": true
+    },
+    "collections": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::collection.collection"
+    }
+  }
+}
+

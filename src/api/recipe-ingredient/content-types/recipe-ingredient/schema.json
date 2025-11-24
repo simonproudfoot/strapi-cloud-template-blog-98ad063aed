@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recipe_ingredients",
+  "info": {
+    "singularName": "recipe-ingredient",
+    "pluralName": "recipe-ingredients",
+    "displayName": "Recipe Ingredient",
+    "description": "Individual ingredient entries linked to a recipe"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "quantity": {
+      "type": "string"
+    },
+    "is_pantry": {
+      "type": "boolean",
+      "default": false
+    },
+    "supermarkets": {
+      "type": "component",
+      "repeatable": true,
+      "component": "ingredient-supermarket.supermarket-entry"
+    },
+    "recipe": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::recipe.recipe",
+      "inversedBy": "ingredients"
+    }
+  }
+}
+

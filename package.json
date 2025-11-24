@@ -1,8 +1,8 @@
 {
-  "name": "my-app-name",
+  "name": "ai-rec-strapi",
   "version": "0.1.0",
   "private": true,
-  "description": "A Strapi application",
+  "description": "Strapi CMS for AI Recipe App",
   "scripts": {
     "build": "strapi build",
     "deploy": "strapi deploy",
@@ -13,10 +13,12 @@
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.28.0",
+    "@strapi/plugin-i18n": "^5.28.0",
     "@strapi/plugin-users-permissions": "5.28.0",
     "@strapi/strapi": "5.28.0",
     "better-sqlite3": "11.3.0",
     "fs-extra": "^10.0.0",
+    "js-yaml": "^4.1.1",
     "mime-types": "^2.1.27",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -24,8 +26,15 @@
     "styled-components": "^6.0.0"
   },
   "devDependencies": {},
+  "author": {
+    "name": "AI Recipe App"
+  },
+  "strapi": {
+    "uuid": "ai-rec-strapi"
+  },
   "engines": {
     "node": ">=18.0.0 <=22.x.x",
     "npm": ">=6.0.0"
-  }
+  },
+  "license": "MIT"
 }

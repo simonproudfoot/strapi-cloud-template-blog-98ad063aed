@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_recipe_instructions",
+  "info": {
+    "displayName": "Instruction",
+    "description": "A single cooking instruction step",
+    "icon": "list"
+  },
+  "options": {},
+  "attributes": {
+    "step": {
+      "type": "text",
+      "required": true
+    },
+    "ingredients_used": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::recipe-ingredient.recipe-ingredient"
+    }
+  }
+}
+

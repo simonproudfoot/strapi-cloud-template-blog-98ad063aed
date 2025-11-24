@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_recipe_tags",
+  "info": {
+    "displayName": "Tag",
+    "description": "A recipe tag",
+    "icon": "price-tag"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
+
