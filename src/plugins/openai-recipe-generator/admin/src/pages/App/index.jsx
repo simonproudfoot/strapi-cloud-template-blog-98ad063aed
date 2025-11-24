@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import {
-  BaseHeaderLayout,
-  ContentLayout,
   Stack,
   Box,
   Textarea,
@@ -132,14 +130,8 @@ const App = () => {
   };
 
   return (
-    <>
-      <BaseHeaderLayout
-        title="AI Recipe Generator"
-        subtitle="Generate curated recipes with the live chat API and save them into Strapi."
-        as="h2"
-      />
-      <ContentLayout>
-        <Stack spacing={6}>
+    <div>
+      <Stack spacing={6}>
           <Box background="neutral0" padding={6} shadow="filterShadow" hasRadius>
             <Stack spacing={4}>
               <Textarea
@@ -257,9 +249,8 @@ const App = () => {
               </Stack>
             </Box>
           )}
-        </Stack>
-      </ContentLayout>
-    </>
+      </Stack>
+    </div>
   );
 };
 
