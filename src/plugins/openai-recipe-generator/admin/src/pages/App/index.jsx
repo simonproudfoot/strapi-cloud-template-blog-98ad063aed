@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Layout,
   BaseHeaderLayout,
   ContentLayout,
   Stack,
@@ -133,7 +132,7 @@ const App = () => {
   };
 
   return (
-    <Layout>
+    <>
       <BaseHeaderLayout
         title="AI Recipe Generator"
         subtitle="Generate curated recipes with the live chat API and save them into Strapi."
@@ -260,7 +259,7 @@ const App = () => {
           )}
         </Stack>
       </ContentLayout>
-    </Layout>
+    </>
   );
 };
 
