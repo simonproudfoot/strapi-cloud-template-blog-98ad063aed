@@ -14,9 +14,28 @@ import {
   Flex,
 } from '@strapi/design-system';
 import { Play, Check } from '@strapi/icons';
-import { useNotification, request } from '@strapi/helper-plugin';
+import { useNotification } from '@strapi/strapi/admin';
 
 import pluginId from '../../pluginId.js';
+
+// Helper function to make API requests
+const request = async (url, options = {}) => {
+  const response = await fetch(`${window.strapi.backendURL || ''}${url}`, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    },
+    body: options.body ? JSON.stringify(options.body) : undefined,
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: 'Request failed' }));
+    throw new Error(error.message || `HTTP error! status: ${response.status}`);
+  }
+
+  return response.json();
+};
 
 const App = () => {
   const toggleNotification = useNotification();
