@@ -1,0 +1,27 @@
+services:
+  strapi:
+    build: .
+    container_name: strapi-app
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: sqlite
+      DATABASE_FILENAME: /opt/app/.tmp/data.db
+      HOST: 0.0.0.0
+      PORT: 1337
+    volumes:
+      # Mount database directory to persist data
+      - ./.tmp:/opt/app/.tmp
+      # Mount uploads directory
+      - ./public/uploads:/opt/app/public/uploads
+      # Mount data directory
+      - ./data:/opt/app/data
+    ports:
+      - "1337:1337"
+    networks:
+      - strapi-network
+
+networks:
+  strapi-network:
+    driver: bridge
+
