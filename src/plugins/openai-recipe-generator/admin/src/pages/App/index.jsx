@@ -1,19 +1,132 @@
 import React, { useState } from 'react';
-import {
-  Stack,
-  Box,
-  Textarea,
-  Grid,
-  GridItem,
-  TextInput,
-  Button,
-  Typography,
-  Flex,
-} from '@strapi/design-system';
 import { Play, Check } from '@strapi/icons';
 import { useNotification } from '@strapi/strapi/admin';
+import styled from 'styled-components';
 
 import pluginId from '../../pluginId.js';
+
+// Styled components for layout
+const Container = styled.div`
+  padding: 24px;
+`;
+
+const Card = styled.div`
+  background: white;
+  padding: 24px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 16px;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 14px;
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+`;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  background: ${props => props.loading ? '#ccc' : '#4945ff'};
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: ${props => props.loading ? 'not-allowed' : 'pointer'};
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  
+  &:hover {
+    background: ${props => props.loading ? '#ccc' : '#3b38cc'};
+  }
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const Title = styled.h1`
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+`;
+
+const Subtitle = styled.h2`
+  font-size: 18px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 8px;
+`;
+
+const PreviewTitle = styled.h3`
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+`;
+
+const SectionTitle = styled.h4`
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+`;
+
+const Text = styled.p`
+  margin: 4px 0;
+  color: ${props => props.color || '#333'};
+  font-size: ${props => {
+    if (props.variant === 'delta') return '18px';
+    if (props.variant === 'epsilon') return '16px';
+    return '14px';
+  }};
+`;
+
+const Flex = styled.div`
+  display: flex;
+  justify-content: ${props => props.justifyContent || 'flex-start'};
+  align-items: ${props => props.alignItems || 'flex-start'};
+  gap: 16px;
+`;
+
+const Pre = styled.pre`
+  background: #f5f5f5;
+  padding: 16px;
+  border-radius: 4px;
+  overflow: auto;
+  max-height: 320px;
+  font-size: 12px;
+  white-space: pre-wrap;
+`;
 
 // Helper function to make API requests
 const request = async (url, options = {}) => {
@@ -130,127 +243,100 @@ const App = () => {
   };
 
   return (
-    <div>
-      <Stack spacing={6}>
-          <Box background="neutral0" padding={6} shadow="filterShadow" hasRadius>
-            <Stack spacing={4}>
-              <Textarea
-                label="Prompt"
-                name="query"
-                placeholder="e.g. Give me a quick midweek chicken pasta"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                required
-                minRows={4}
-              />
-              <Grid gap={4}>
-                <GridItem col={6} s={12}>
-                  <TextInput
-                    label="Dietary requirements"
-                    name="dietaryRequirements"
-                    placeholder="Optional – e.g. Vegetarian"
-                    value={dietaryRequirements}
-                    onChange={(e) => setDietaryRequirements(e.target.value)}
-                  />
-                </GridItem>
-                <GridItem col={6} s={12}>
-                  <TextInput
-                    label="Serving size"
-                    name="servingSize"
-                    placeholder="Optional – e.g. Serves 2"
-                    value={servingSize}
-                    onChange={(e) => setServingSize(e.target.value)}
-                  />
-                </GridItem>
-              </Grid>
-              <Button
-                onClick={handleGenerate}
-                loading={isGenerating}
-                startIcon={<Play />}
-              >
-                Generate recipe
-              </Button>
-            </Stack>
-          </Box>
+    <Container>
+      <Title>AI Recipe Generator</Title>
+      <Subtitle>Generate curated recipes with the live chat API and save them into Strapi.</Subtitle>
+      
+      <Card>
+        <FormGroup>
+          <Label htmlFor="query">Prompt</Label>
+          <TextArea
+            id="query"
+            name="query"
+            placeholder="e.g. Give me a quick midweek chicken pasta"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            required
+            rows={4}
+          />
+        </FormGroup>
+        
+        <Grid>
+          <FormGroup>
+            <Label htmlFor="dietaryRequirements">Dietary requirements</Label>
+            <Input
+              id="dietaryRequirements"
+              name="dietaryRequirements"
+              type="text"
+              placeholder="Optional – e.g. Vegetarian"
+              value={dietaryRequirements}
+              onChange={(e) => setDietaryRequirements(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="servingSize">Serving size</Label>
+            <Input
+              id="servingSize"
+              name="servingSize"
+              type="text"
+              placeholder="Optional – e.g. Serves 2"
+              value={servingSize}
+              onChange={(e) => setServingSize(e.target.value)}
+            />
+          </FormGroup>
+        </Grid>
+        
+        <Button onClick={handleGenerate} loading={isGenerating} disabled={isGenerating}>
+          <Play /> Generate recipe
+        </Button>
+      </Card>
 
-          {generatedRecipe && (
-            <Box background="neutral0" padding={6} shadow="filterShadow" hasRadius>
-              <Stack spacing={4}>
-                <Flex justifyContent="space-between" alignItems="center">
-                  <Typography variant="beta" fontWeight="bold">
-                    Preview
-                  </Typography>
-                  <Button
-                    onClick={handleCreate}
-                    loading={isSaving}
-                    startIcon={<Check />}
-                  >
-                    Save to Strapi
-                  </Button>
-                </Flex>
-                <Stack spacing={3}>
-                  <Typography variant="delta">
-                    {generatedRecipe.name || generatedRecipe.title}
-                  </Typography>
-                  {generatedRecipe.description && (
-                    <Typography textColor="neutral600">
-                      {generatedRecipe.description}
-                    </Typography>
-                  )}
-                  <Stack spacing={2}>
-                    <Typography variant="epsilon" fontWeight="bold">
-                      Ingredients
-                    </Typography>
-                    <Stack spacing={1}>
-                      {generatedRecipe.ingredients?.map((ingredient, index) => (
-                        <Typography
-                          key={`${ingredient.name}-${index}`}
-                          textColor="neutral700"
-                        >
-                          {ingredient.quantity ? `${ingredient.quantity} ` : ''}
-                          {ingredient.name}
-                        </Typography>
-                      ))}
-                    </Stack>
-                  </Stack>
-                  <Stack spacing={2}>
-                    <Typography variant="epsilon" fontWeight="bold">
-                      Instructions
-                    </Typography>
-                    <Stack spacing={1}>
-                      {generatedRecipe.instructions?.map((instruction, index) => (
-                        <Typography
-                          key={`instruction-${index}`}
-                          textColor="neutral700"
-                        >
-                          {typeof instruction === 'string'
-                            ? instruction
-                            : instruction.step}
-                        </Typography>
-                      ))}
-                    </Stack>
-                  </Stack>
-                </Stack>
-                {rawResponse && (
-                  <Box
-                    background="neutral100"
-                    padding={4}
-                    hasRadius
-                    style={{ maxHeight: 320, overflow: 'auto' }}
-                  >
-                    <Typography variant="pi" fontWeight="bold">
-                      Raw response
-                    </Typography>
-                    <Box as="pre" marginTop={2} style={{ whiteSpace: 'pre-wrap' }}>
-                      {JSON.stringify(rawResponse, null, 2)}
-                    </Box>
-                  </Box>
-                )}
-              </Stack>
-            </Box>
+      {generatedRecipe && (
+        <Card>
+          <Flex justifyContent="space-between" alignItems="center">
+            <PreviewTitle>Preview</PreviewTitle>
+            <Button onClick={handleCreate} loading={isSaving} disabled={isSaving}>
+              <Check /> Save to Strapi
+            </Button>
+          </Flex>
+          
+          <div>
+            <Text variant="delta">{generatedRecipe.name || generatedRecipe.title}</Text>
+            {generatedRecipe.description && (
+              <Text color="#666">{generatedRecipe.description}</Text>
+            )}
+            
+            <div style={{ marginTop: '16px' }}>
+              <SectionTitle>Ingredients</SectionTitle>
+              {generatedRecipe.ingredients?.map((ingredient, index) => (
+                <Text key={`${ingredient.name}-${index}`} color="#555">
+                  {ingredient.quantity ? `${ingredient.quantity} ` : ''}
+                  {ingredient.name}
+                </Text>
+              ))}
+            </div>
+            
+            <div style={{ marginTop: '16px' }}>
+              <SectionTitle>Instructions</SectionTitle>
+              {generatedRecipe.instructions?.map((instruction, index) => (
+                <Text key={`instruction-${index}`} color="#555">
+                  {typeof instruction === 'string'
+                    ? instruction
+                    : instruction.step}
+                </Text>
+              ))}
+            </div>
+          </div>
+          
+          {rawResponse && (
+            <div style={{ marginTop: '24px' }}>
+              <SectionTitle>Raw response</SectionTitle>
+              <Pre>{JSON.stringify(rawResponse, null, 2)}</Pre>
+            </div>
           )}
-      </Stack>
-    </div>
+        </Card>
+      )}
+    </Container>
   );
 };
 
