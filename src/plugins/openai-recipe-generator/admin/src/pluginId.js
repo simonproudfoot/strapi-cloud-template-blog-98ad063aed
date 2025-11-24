@@ -1,3 +1,1 @@
-'use strict';
-
-module.exports = 'openai-recipe-generator';
+export default 'openai-recipe-generator';

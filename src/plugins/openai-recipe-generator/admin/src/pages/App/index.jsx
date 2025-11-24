@@ -16,13 +16,7 @@ import {
 import { Play, Check } from '@strapi/icons';
 import { useNotification, request } from '@strapi/helper-plugin';
 
-// Import pluginId - Strapi build will handle this
-let pluginId;
-try {
-  pluginId = require('../../pluginId');
-} catch (e) {
-  pluginId = 'openai-recipe-generator';
-}
+import pluginId from '../../pluginId.js';
 
 const App = () => {
   const toggleNotification = useNotification();

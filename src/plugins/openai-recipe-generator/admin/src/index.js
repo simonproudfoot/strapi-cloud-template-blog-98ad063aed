@@ -1,10 +1,8 @@
-'use strict';
+import pluginId from './pluginId.js';
+import { PluginIcon } from './PluginIcon.js';
+import { Initializer } from './Initializer.js';
 
-const pluginId = require('./pluginId');
-const { PluginIcon } = require('./PluginIcon');
-const { Initializer } = require('./Initializer');
-
-module.exports = {
+export default {
   register(app) {
     app.addMenuLink({
       to: `/plugins/${pluginId}`,
@@ -14,7 +12,7 @@ module.exports = {
         defaultMessage: 'AI Recipes',
       },
       Component: async () => {
-        const component = await Promise.resolve().then(() => require('./pages/App'));
+        const component = await import('./pages/App/index.jsx');
         return component.default || component;
       },
       permissions: [],

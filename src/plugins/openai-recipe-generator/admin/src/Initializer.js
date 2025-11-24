@@ -1,6 +1,4 @@
-'use strict';
-
-const React = require('react');
+import React from 'react';
 
 const Initializer = ({ setPlugin }) => {
   const ref = React.useRef(false);
@@ -13,4 +11,4 @@ const Initializer = ({ setPlugin }) => {
   return null;
 };
 
-module.exports = { Initializer };
+export { Initializer };

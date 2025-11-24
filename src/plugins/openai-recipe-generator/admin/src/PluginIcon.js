@@ -1,6 +1,4 @@
-'use strict';
-
-const React = require('react');
+import React from 'react';
 
 const PluginIcon = () => React.createElement(
   'svg',
@@ -28,4 +26,4 @@ const PluginIcon = () => React.createElement(
   })
 );
 
-module.exports = { PluginIcon };
+export { PluginIcon };

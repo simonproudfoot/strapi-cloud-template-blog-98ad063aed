@@ -1,4 +1,2 @@
-'use strict';
-
-module.exports = require('./admin/src');
+export { default } from './admin/src/index.js';
 
